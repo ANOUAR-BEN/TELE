@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Carte QR — Contact</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:#0b1220;color:#e2e8f0}
+    .wrap{max-width:760px;margin:0 auto;padding:28px}
+    .card{background:#0f172a;border:1px solid #1f2937;border-radius:22px;padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+    h1{margin:0 0 8px}
+    .muted{color:#94a3b8}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 16px;border-radius:14px;text-decoration:none;font-weight:700;background:#2563eb;color:white}
+    .btn.alt{background:#16a34a}
+    .btn.gray{background:#334155}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .item{padding:8px 0;border-bottom:1px dashed #283141}
+    .item:last-child{border-bottom:none}
+    .badge{display:inline-block;background:#1e293b;border:1px solid #334155;border-radius:999px;padding:4px 10px;font-size:.9rem;color:#cbd5e1}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h1>👋 Anouar</h1>
+        <span class="badge">Topographie</span>
+      </div>
+      <p class="muted">Tu peux sauvegarder mon contact et m'envoyer ton numéro en 1 clic.</p>
+
+      <div class="item"><strong>📱 Téléphone</strong> : +212694216714</div>
+      <div class="item"><strong>✉️ Email</strong> : anouar19topo@gmail.com</div>
+      <div class="item"><strong>🌐 Site</strong> : -</div>
+
+      <div class="grid">
+        <a class="btn" href="contact.vcf" id="saveBtn" download>💾 Sauvegarder mon contact (VCF)</a>
+        <a class="btn alt" id="waBtn" href="#" rel="nofollow">🟢 M'écrire sur WhatsApp</a>
+        <a class="btn gray" href="sms.html">💬 M'envoyer un SMS rapide</a>
+        <a class="btn gray" href="tel:+212694216714">📞 Appeler</a>
+      </div>
+
+      <p class="muted">Astuce : ajoute <code>?auto=1</code> à l'URL pour déclencher le téléchargement automatique du VCF.</p>
+
+      <h3>📩 Tu veux que je reçoive ton numéro ?</h3>
+      <p class="muted">Choisis WhatsApp ou SMS, le message est déjà prêt. Tu peux aussi remplir le formulaire :</p>
+      <div class="row">
+        <a class="btn alt" href="form.html">📝 Laisser mon numéro (formulaire)</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Config utilisateur
+    const YOUR_NAME = "Anouar";
+    const YOUR_PHONE_E164 = "+212694216714"; // +2126...
+    const PREFILL = "Salam " + YOUR_NAME + "، voici mon numéro : ";
+    function waLink(){
+      const txt = encodeURIComponent(PREFILL + "(écris ton numéro ici)");
+      return "https://wa.me/" + YOUR_PHONE_E164.replace(/[^0-9]/g,"") + "?text=" + txt;
+    }
+    document.getElementById("waBtn").href = waLink();
+
+    // Auto download du VCF si ?auto=1
+    const q = new URLSearchParams(location.search);
+    if(q.get("auto")==="1"){
+      const a=document.createElement("a");
+      a.href="contact.vcf";a.download="";document.body.appendChild(a);a.click();a.remove();
+    }
+  </script>
+</body>
+</html>
